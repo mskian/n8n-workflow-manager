@@ -42,13 +42,17 @@ CREATE TABLE `n8n` (
 
 > Still it's on ⚠ WIP if you have any ideas your PR's are Welcome 😊  
 
-**Note**: Don't use this on Protection server or any other online platforms use it locally and manage it via localhost server
+**Note**: Don't use this on Production server or any other online platforms use it locally and manage it via localhost server
 
 ```sh
 # Localhost server using PHP
 
 php -S localhost:5001
 
+```
+- Now open your browser with the following URL
+```
+http://localhost:5001
 ```
 
 ## LICENSE
