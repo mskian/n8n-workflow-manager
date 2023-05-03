@@ -6,19 +6,39 @@ include './class/store.php';
 ?>
 
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#ffffff">
+        <link
+            rel="icon"
+            type="image/png"
+            sizes="196x196"
+            href="/icons/favicon-196.png"
+        />
+        <link
+            rel="shortcut icon"
+            type="image/x-icon"
+            href="/icons/favicon.ico"
+        />
+<link rel="apple-touch-icon" href="/icons/apple-icon-180.png" />
+<meta name="mobile-web-app-capable" content="yes" />
+<meta name="application-name" content="n8n Switch" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-title" content="n8n Switch" />
 
-<title>n8n matrix Cricket</title>
-<meta name="description" content="ON and OFF n8n matrix Cricket Workflow." />
+<title>n8n Switch</title>
+<meta name="description" content="A simple web page to ON and OFF n8n Workflow using webhook Trigger." />
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.4/css/bulma.min.css" integrity="sha512-HqxHUkJM0SYcbvxUw5P60SzdOTy/QVwA1JJrvaXJv4q7lmbDZCmZaqz01UPOaQveoxfYRv1tHozWGPMcuTBuvQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://cdnjs.cloudflare.com" />
+<link rel="preconnect" href="https://cdn.jsdelivr.net" />
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.4/css/bulma.min.css" integrity="sha512-HqxHUkJM0SYcbvxUw5P60SzdOTy/QVwA1JJrvaXJv4q7lmbDZCmZaqz01UPOaQveoxfYRv1tHozWGPMcuTBuvQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pretty-checkbox@3.0.3/dist/pretty-checkbox.min.css" integrity="sha256-sI14MHRjSf+KF9MjQHjqHkbDPwsdKXUkhBUdnGCg1iU=" crossorigin="anonymous">
 
@@ -75,6 +95,8 @@ th {
 }
 </style>
 
+<link rel="manifest" href="/manifest.json" />
+
 </head>
 <body>
 
@@ -85,7 +107,7 @@ th {
     <div class="card-content">
     
     <blockquote class="notification is-link boxpanel">
-    <h3 class="is-size-5 has-text-light">Matrix Workflow</h3>
+    <h3 class="is-size-6 has-text-light"><div id="apptitle"></h3>
     <hr>
     <div class="pretty p-default p-curve p-toggle">
         <input type="checkbox" type="checkbox" id="trigger" />
@@ -134,6 +156,9 @@ async function fetchstatus() {
     try {
         const response = await fetch(apiURL, { headers: { "X-N8N-API-KEY": apiKEY}});
         const data = await response.json();
+        if (document.getElementById("apptitle") != null) {
+           document.getElementById('apptitle').innerHTML = data.name;
+        }
         console.log(data.active)
         if (data.active === true) {
               document.getElementById('fetchstatus').innerHTML = 'Fetching Status 📦';
