@@ -6,7 +6,6 @@ A simple web page to ON and OFF n8n Workflow using webhook Trigger.
 
 ## Usage
 
-
 - PHP for API
 - n8n webhook GET for trigger the workflow
 - n8n API for GET the workflow status (IS ACTIVE OR INACTIVE)
