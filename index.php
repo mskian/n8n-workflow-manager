@@ -55,6 +55,24 @@ padding: 20px;
 -moz-font-smoothing: antialiased !important;
 text-rendering: optimizelegibility !important;
 }
+table {
+    margin: 0.5em 0 2.5em;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    padding: 12px;
+    -moz-osx-font-smoothing: grayscale;
+   -webkit-font-smoothing: antialiased !important;
+   -moz-font-smoothing: antialiased !important;
+   text-rendering: optimizelegibility !important;
+   border-bottom:2px solid #bbb !important;background-color:#d3d3d3
+}
+table th {
+	color: #15171A;
+	text-transform: uppercase;
+	background-color: #e5eff5;
+}
+th {
+   white-space: nowrap;
+}
 </style>
 
 </head>
@@ -85,6 +103,20 @@ text-rendering: optimizelegibility !important;
 
     </blockquote>
     <br>
+    <div class="content table table is-bordered table is-striped table is-narrow table is-hoverable">
+    <table>
+    <tbody>
+    <tr>
+    <th>Workflow Name</th>
+    <td><div id="fetchname"></div></td>
+    </tr>
+    <tr>
+    <th>Status </th>
+    <td><div id="fetchstatus"></div></td>
+    </tr>
+    </tbody>
+    </table>
+    </div>
     <div id="notice"></div>
     <br>
     <div id="verify"></div>
@@ -95,6 +127,40 @@ text-rendering: optimizelegibility !important;
     </section>
 
 <script>
+
+async function fetchstatus() {
+    let apiURL = "<?php echo getenv('APIURL'); ?>";
+    let apiKEY = "<?php echo getenv('APIKEY'); ?>";
+    try {
+        const response = await fetch(apiURL, { headers: { "X-N8N-API-KEY": apiKEY}});
+        const data = await response.json();
+        console.log(data.active)
+        if (data.active === true) {
+              document.getElementById('fetchstatus').innerHTML = 'Fetching Status 📦';
+              document.getElementById('fetchname').innerHTML = 'Fetching Name 📦';
+              setTimeout(() => {
+                document.getElementById('fetchstatus').innerHTML = '✅ Active';
+                document.getElementById('fetchname').innerHTML = data.name;
+              }, 1000);
+          } else {
+            document.getElementById('fetchstatus').innerHTML = 'Fetching Status 📦';
+            document.getElementById('fetchname').innerHTML = 'Fetching Name 📦';
+              setTimeout(() => {
+                document.getElementById('fetchstatus').innerHTML = '⛔ inactive';
+                document.getElementById('fetchname').innerHTML = data.name;
+              }, 1000);
+          }
+    } catch (exception) {
+        console.log('Failed to retrieve your IP informations');
+        if (document.getElementById('fetchstatus') != null) {
+            document.getElementById('fetchstatust').innerHTML = 'Fetching Status 📦';
+            setTimeout(() => {
+                document.getElementById('fetchstatus').innerHTML = 'Connection Lost';
+            }, 1000);
+        }
+    }
+}
+fetchstatus();
 
 function check() {
   document.getElementById("trigger").checked = true;

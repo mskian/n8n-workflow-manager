@@ -6,6 +6,7 @@ A simple web page to ON and OFF n8n Workflow using webhook Trigger.
 
 - PHP for API
 - n8n webhook GET for trigger the workflow
+- n8n API for GET the workflow status (IS ACTIVE OR INACTIVE)
 - MYSQL PDO database for ON and OFF conditon validation
 - Bulma CSS Framework
 
@@ -17,13 +18,16 @@ A simple web page to ON and OFF n8n Workflow using webhook Trigger.
 
 ```env
 
-ACTIVATE=https://n8n.example.com/webhook/xxxxxxxxxxxxxxxxx
-DEACTIVATE=https://n8n.example.com/webhook/xxxxxxxxxxxxxxx
+ACTIVATE=https://n8n.example.com/webhook/xxxxxxxxxxxxxxxxxXXXXXX
+DEACTIVATE=https://n8n.example.com/webhook/xxxxxxxxxxxxxxxXXXXXX
 
 DBHOST=YOURDBHOST
 DBNAME=YOURDBNAME
 DBUSERNAME=YOURDBUSERNAME
 DBPASSWORD=YOURDBPASSWORD
+
+APIURL=https://n8n.example.com/api/v1/workflows/<WOKRFLOW ID>
+APIKEY=n8n_api_XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 
 ```
 
@@ -45,14 +49,19 @@ CREATE TABLE `n8n` (
 **Note**: Don't use this on Production server or any other online platforms use it locally and manage it via localhost server
 
 ```sh
+
 # Localhost server using PHP
 
 php -S localhost:5001
 
 ```
+
 - Now open your browser with the following URL
-```
+
+```sh
+
 http://localhost:5001
+
 ```
 
 ## LICENSE
