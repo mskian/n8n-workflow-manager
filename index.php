@@ -151,10 +151,8 @@ th {
 <script>
 
 async function fetchstatus() {
-    let apiURL = "<?php echo getenv('APIURL'); ?>";
-    let apiKEY = "<?php echo getenv('APIKEY'); ?>";
     try {
-        const response = await fetch(apiURL, { headers: { "X-N8N-API-KEY": apiKEY}});
+        const response = await fetch("/api/proxy.php");
         const data = await response.json();
         if (document.getElementById("apptitle") != null) {
            document.getElementById('apptitle').innerHTML = data.name;
